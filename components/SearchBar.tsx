@@ -78,7 +78,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   return (
     <div className="relative w-full">
       <label htmlFor="where" className="sr-only">Destination</label>
-      <div className="flex w-full items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm focus-within:ring-2 focus-within:ring-neutral-800 transition-shadow duration-150">
+      <div className="flex w-full items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm transition-shadow duration-150">        
         <input
           id="where"
           ref={inputRef}
@@ -87,7 +87,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
           onKeyDown={onKeyDown}
           placeholder="I’m going to…"
           autoComplete="off"
-          className="h-14 w-full rounded-full bg-transparent text-base outline-none placeholder:text-neutral-400 focus:shadow-[0_0_0_3px_rgba(16,16,16,0.05)]"
+          className="h-14 w-full rounded-full bg-transparent text-base outline-none placeholder:text-neutral-400"
           aria-autocomplete="list"
           aria-expanded={open}
           aria-controls="suggest-list"
@@ -96,7 +96,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
         <button
           aria-label="Search"
           onClick={() => handleSubmit(q)}
-          className="ml-2 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500 text-white transition-transform duration-100 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-600 active:scale-95"
+          className="ml-2 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white transition-transform duration-100 hover:scale-[1.02] focus:outline-none focus:ring-2 focus:ring-emerald-600 active:scale-95"
           disabled={state === 'loading'}
         >
           <AnimatePresence mode="popLayout" initial={false}>
