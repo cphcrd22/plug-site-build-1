@@ -13,7 +13,10 @@ function json(data: unknown, init?: ResponseInit) {
 
 type Entry = { country: string }
 const data = merged as Entry[]
-const allKeys = data.map(r => norm(r.country))
+const entries = data.map(row => ({
+  key: norm(row.country),
+  name: row.country,
+}))
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''
@@ -21,6 +24,9 @@ export async function GET(req: NextRequest) {
   if (!key) return json({ suggestions: [] })
 
   // prefix-only, exact tokens, no fuzzy
-  const suggestions = allKeys.filter(k => k.startsWith(key)).slice(0, 10)
+  const suggestions = entries
+    .filter(e => e.key.startsWith(key))
+    .slice(0, 10)
+    .map(e => e.name)
   return json({ suggestions })
 }
