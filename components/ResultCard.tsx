@@ -21,10 +21,9 @@ export function ResultCard({ data }: { data: {
           <span className="text-2xl">{flagEmoji(resolved.countryCode)}</span>
           <span>{resolved.countryCode}</span>
         </div>
-        <span className="text-xs text-neutral-500">Dataset: {data.version}</span>
+        <span className="text-xs text-neutral-500">Source: International Electrotechnical Commission</span>
       </div>
 
-      <div className="mt-1 text-xs text-neutral-500">Last verified: {verified}</div>
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
         <div className="flex items-center gap-2">
