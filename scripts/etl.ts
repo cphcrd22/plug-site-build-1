@@ -1,6 +1,5 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { norm } from '../lib/norm.js' // change to .ts if running ts-node
 
 type PlugRow = {
   countryCode: string
@@ -17,13 +16,10 @@ async function run() {
   // 1) Load sources (replace with your CSV/JSON loader)
   const iso = await readCSV('sources/iso-3166.csv')              // [{alpha2,name}]
   const plugs = await readCSV('sources/plug-source.csv') as any[] // map to PlugRow
-  const aliases = await readCSV('sources/aliases.csv')            // [{alias,countryCode}]
 
   const isoSet = new Set(iso.map((r:any) => r.alpha2.toUpperCase()))
   const outPlugs: Record<string, any> = {}
-  const outAliases: Record<string,string> = {}
-
-  // 2) Build plug-types.json
+  // Build plug specs map
   for (const r of plugs) {
     const cc = String(r.countryCode || '').toUpperCase()
     if (!isoSet.has(cc)) throw new Error(`Unknown ISO country: ${cc}`)
@@ -42,23 +38,21 @@ async function run() {
     }
   }
 
-  // 3) Build aliases.json
-  for (const row of aliases) {
-    const cc = String(row.countryCode || '').toUpperCase()
-    if (!isoSet.has(cc)) throw new Error(`Alias points to unknown ISO: ${cc}`)
-    const key = norm(String(row.alias || ''))
-    if (!key) continue
-    if (outAliases[key] && outAliases[key] !== cc) {
-      throw new Error(`Conflicting alias "${key}": ${outAliases[key]} vs ${cc}`)
+  // Write merged dataset
+  const merged = iso.map((r:any) => {
+    const cc = r.alpha2.toUpperCase()
+    const spec = outPlugs[cc] || { plugTypes: [], voltage: [], frequencyHz: 0 }
+    return {
+      code: cc,
+      country: r.name,
+      plug_type: spec.plugTypes,
+      voltage: spec.voltage.map((v:number) => String(v)),
+      frequency: [String(spec.frequencyHz)],
     }
-    outAliases[key] = cc
-  }
+  })
+  await fs.writeFile(path.join('data','merged.json'), JSON.stringify(merged, null, 2))
 
-  // 4) Write outputs
-  await fs.writeFile(path.join('data','plug-types.json'), JSON.stringify(outPlugs, null, 2))
-  await fs.writeFile(path.join('data','aliases.json'), JSON.stringify(outAliases, null, 2))
-
-  // 5) Echo suggested version (paste into .env.local)
+  // Echo suggested version (paste into .env.local)
   const version = `DATASET_${new Date().toISOString().slice(0,10).replace(/-/g,'_')}`
   console.log('Suggested DATASET_VERSION=', version)
 }

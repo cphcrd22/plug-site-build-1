@@ -1,4 +1,4 @@
-# Plug Type Finder — Exact-Match MVP (Sample Data)
+# Plug Type Finder — Exact-Match MVP
 
 .
 ├─ app/
@@ -15,8 +15,7 @@
 │  ├─ SearchBar.tsx            # Search input + suggestions + animations
 │  └─ icons.tsx                # Small icon set (Spinner, Check, ArrowRight, Bolt, Wave)
 ├─ data/
-│  ├─ aliases.json             # SAMPLE aliases (pre-normalized keys → ISO alpha-2)
-│  └─ plug-types.json          # SAMPLE plug specs by countryCode
+│  └─ merged.json              # Country plug specs dataset
 ├─ lib/
 │  ├─ flags.ts                 # Country code → flag emoji
 │  ├─ norm.ts                  # Deterministic normalization (NFKD, strip diacritics, etc.)

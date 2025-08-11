@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import aliases from '@/data/aliases.json'
-import plugs from '@/data/plug-types.json'
+import merged from '@/data/merged.json'
 import { norm } from '@/lib/norm'
 import { LookupOk, LookupNoMatch } from '@/lib/types'
 
@@ -13,6 +12,21 @@ function json(data: unknown, init?: ResponseInit) {
   return res
 }
 
+type Entry = {
+  code: string
+  country: string
+  plug_type: string[]
+  voltage: string[]
+  frequency: string[]
+}
+
+const data = merged as Entry[]
+const lookup = new Map<string, Entry>()
+for (const row of data) {
+  lookup.set(norm(row.country), row)
+  lookup.set(norm(row.code), row)
+}
+
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''
   const key = norm(q)
@@ -21,23 +35,22 @@ export async function GET(req: NextRequest) {
     return json(body)
   }
 
-  const cc = (aliases as Record<string, string>)[key]
-  if (!cc) {
+  const entry = lookup.get(key)
+  if (!entry) {
     const body: LookupNoMatch = { query: q, status: 'no_match' }
     return json(body)
   }
 
-  const spec = (plugs as Record<string, any>)[cc]
-  if (!spec) {
-    // If alias exists without plug data, treat as no data (kept simple for sample)
-    const body = { query: q, status: 'no_data_for_country', countryCode: cc }
-    return json(body)
+  const spec = {
+    plugTypes: entry.plug_type,
+    voltage: entry.voltage.map(v => Number(v)),
+    frequencyHz: Number(entry.frequency[0]),
   }
 
   const version = process.env.DATASET_VERSION || 'DATASET_SAMPLE_2025_08_10'
   const body: LookupOk = {
     query: q,
-    resolved: { type: 'country', countryCode: cc },
+    resolved: { type: 'country', countryCode: entry.code, name: entry.country },
     spec,
     confidence: 1.0,
     version,
