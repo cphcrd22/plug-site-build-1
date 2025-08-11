@@ -1,0 +1,51 @@
+{
+    "US": {
+      "plugTypes": ["A", "B"],
+      "voltage": [120, 120],
+      "frequencyHz": 60,
+      "notes": "Type A/B nationwide.",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    },
+    "GB": {
+      "plugTypes": ["G"],
+      "voltage": [230, 230],
+      "frequencyHz": 50,
+      "notes": "Type G nationwide.",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    },
+    "NL": {
+      "plugTypes": ["C", "F"],
+      "voltage": [230, 230],
+      "frequencyHz": 50,
+      "notes": "Types C/F common.",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    },
+    "FR": {
+      "plugTypes": ["C", "E"],
+      "voltage": [230, 230],
+      "frequencyHz": 50,
+      "notes": "Types C/E common.",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    },
+    "JP": {
+      "plugTypes": ["A", "B"],
+      "voltage": [100, 100],
+      "frequencyHz": 50,
+      "notes": "East: 50 Hz; West: 60 Hz (sample simplification).",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    },
+    "CI": {
+      "plugTypes": ["C", "E"],
+      "voltage": [230, 230],
+      "frequencyHz": 50,
+      "notes": "Sample data for Côte d’Ivoire.",
+      "lastVerified": "2025-08-09",
+      "sources": ["sample"]
+    }
+  }
+  
