@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import aliases from '@/data/aliases.json'
+import merged from '@/data/merged.json'
 import { norm } from '@/lib/norm'
 
 export const runtime = 'edge'
@@ -11,12 +11,15 @@ function json(data: unknown, init?: ResponseInit) {
   return res
 }
 
+type Entry = { country: string }
+const data = merged as Entry[]
+const allKeys = data.map(r => norm(r.country))
+
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''
   const key = norm(q)
   if (!key) return json({ suggestions: [] })
 
-  const allKeys = Object.keys(aliases as Record<string, string>)
   // prefix-only, exact tokens, no fuzzy
   const suggestions = allKeys.filter(k => k.startsWith(key)).slice(0, 10)
   return json({ suggestions })

@@ -1,12 +1,12 @@
-# Plug Type Finder — Exact-Match MVP (Sample Data)
+# Plug Type Finder — Exact-Match MVP
 
 Deterministic, **exact-match** lookup that returns **plug types, voltage, and frequency** for a destination **only when the normalized query matches a curated alias**. No LLM, no fuzzy. Optimized for edge latency.
 
 ## What’s inside
 
-- **/api/lookup** — Edge resolver (NFKD normalize → strip diacritics → lowercase → remove punctuation except spaces/hyphens → collapse spaces → trim → exact match in `aliases.json` → join `plug-types.json`)
-- **/api/suggest** — Optional **prefix-only** suggestions from alias keys (still exact tokens)
-- **Sample data** — Tiny `aliases.json` + `plug-types.json` (countries only) to validate the pipeline
+- **/api/lookup** — Edge resolver (NFKD normalize → strip diacritics → lowercase → remove punctuation except spaces/hyphens → collapse spaces → trim → exact match in `merged.json`)
+- **/api/suggest** — Optional **prefix-only** suggestions from country names (still exact tokens)
+- **Dataset** — `merged.json` containing country codes, plug types, voltage, and frequency
 - **UI** — Minimal search + result card with animations and P3 Pro CTA
 
 ## Run locally (Cursor or terminal)
