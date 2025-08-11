@@ -19,7 +19,7 @@ export function ResultCard({ data }: { data: {
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-2 text-lg font-semibold">
           <span className="text-2xl">{flagEmoji(resolved.countryCode)}</span>
-          <span>{resolved.countryCode}</span>
+          <span>{resolved.name ?? resolved.countryCode}</span>
         </div>
         <span className="text-xs text-neutral-500">Source: International Electrotechnical Commission</span>
       </div>
