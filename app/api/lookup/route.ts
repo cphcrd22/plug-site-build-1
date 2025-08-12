@@ -18,6 +18,8 @@ type Entry = {
   plug_type: string[]
   voltage: string[]
   frequency: string[]
+  cities?: string[]
+  asciiname?: string[]
 }
 
 const data = merged as Entry[]
@@ -25,6 +27,12 @@ const lookup = new Map<string, Entry>()
 for (const row of data) {
   lookup.set(norm(row.country), row)
   lookup.set(norm(row.code), row)
+  for (const city of row.cities ?? []) {
+    lookup.set(norm(city), row)
+  }
+  for (const city of row.asciiname ?? []) {
+    lookup.set(norm(city), row)
+  }
 }
 
 export async function GET(req: NextRequest) {
