@@ -11,12 +11,25 @@ function json(data: unknown, init?: ResponseInit) {
   return res
 }
 
-type Entry = { country: string }
+type Entry = {
+  country: string
+  cities?: string[]
+  asciiname?: string[]
+}
 const data = merged as Entry[]
-const entries = data.map(row => ({
-  key: norm(row.country),
-  name: row.country,
-}))
+const entriesMap = new Map<string, string>()
+for (const row of data) {
+  entriesMap.set(norm(row.country), row.country)
+  for (const city of row.cities ?? []) {
+    const key = norm(city)
+    if (!entriesMap.has(key)) entriesMap.set(key, city)
+  }
+  for (const city of row.asciiname ?? []) {
+    const key = norm(city)
+    if (!entriesMap.has(key)) entriesMap.set(key, city)
+  }
+}
+const entries = Array.from(entriesMap, ([key, name]) => ({ key, name }))
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''

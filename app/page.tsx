@@ -61,7 +61,7 @@ export default function Page() {
       <SearchBar onSubmit={onSubmit} />
 
       <p className="mt-3 text-sm text-neutral-600">
-        Type a <em>country</em> or common alias (e.g., <span className="italic">UK</span>, <span className="italic">Holland</span>).
+        Type a <em>country</em>, <em>city</em>, or common alias (e.g., <span className="italic">UK</span>, <span className="italic">Holland</span>).
       </p>
 
       <div className="mt-8 w-full" aria-live="polite">

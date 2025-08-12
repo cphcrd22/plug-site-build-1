@@ -5,8 +5,8 @@ Deterministic, **exact-match** lookup that returns **plug types, voltage, and fr
 ## What’s inside
 
 - **/api/lookup** — Edge resolver (NFKD normalize → strip diacritics → lowercase → remove punctuation except spaces/hyphens → collapse spaces → trim → exact match in `merged.json`)
-- **/api/suggest** — Optional **prefix-only** suggestions from country names (still exact tokens)
-- **Dataset** — `merged.json` containing country codes, plug types, voltage, and frequency
+- **/api/suggest** — Optional **prefix-only** suggestions from country and city names (still exact tokens)
+- **Dataset** — `merged.json` containing country codes, plug specs, and major city aliases (with ASCII variants)
 - **UI** — Minimal search + result card with animations and P3 Pro CTA
 
 ## Run locally (Cursor or terminal)
