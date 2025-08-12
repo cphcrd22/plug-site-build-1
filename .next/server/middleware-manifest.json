@@ -1,49 +1,6 @@
 {
   "version": 3,
   "middleware": {},
-  "functions": {
-    "/api/suggest/route": {
-      "files": [
-        "server/middleware-build-manifest.js",
-        "server/middleware-react-loadable-manifest.js",
-        "server/next-font-manifest.js",
-        "server/interception-route-rewrite-manifest.js",
-        "server/edge-runtime-webpack.js",
-        "server/app/api/suggest/route.js"
-      ],
-      "name": "app/api/suggest/route",
-      "page": "/api/suggest/route",
-      "matchers": [
-        {
-          "regexp": "^/api/suggest$",
-          "originalSource": "/api/suggest"
-        }
-      ],
-      "wasm": [],
-      "assets": [],
-      "environments": {}
-    },
-    "/api/lookup/route": {
-      "files": [
-        "server/middleware-build-manifest.js",
-        "server/middleware-react-loadable-manifest.js",
-        "server/next-font-manifest.js",
-        "server/interception-route-rewrite-manifest.js",
-        "server/edge-runtime-webpack.js",
-        "server/app/api/lookup/route.js"
-      ],
-      "name": "app/api/lookup/route",
-      "page": "/api/lookup/route",
-      "matchers": [
-        {
-          "regexp": "^/api/lookup$",
-          "originalSource": "/api/lookup"
-        }
-      ],
-      "wasm": [],
-      "assets": [],
-      "environments": {}
-    }
-  },
+  "functions": {},
   "sortedMiddleware": []
 }
