@@ -1,0 +1,146 @@
+[33mcommit f7285c578b692c0c6de4d126ef3ce336f5a80300[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Merge: 20553a5 c9ce9d9
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:53:39 2025 -0400
+
+    Merge pull request #7 from cphcrd22/codex/enhance-typescript-resolver-for-speed-and-clarity
+    
+    feat: add hybrid location resolver
+
+[33mcommit c9ce9d9d5c2195c52b2d9e1f474da94d14964cfe[m[33m ([m[1;31morigin/codex/enhance-typescript-resolver-for-speed-and-clarity[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:53:26 2025 -0400
+
+    feat: add hybrid location resolver
+
+[33mcommit 20553a5c43f72996803fd04346c6d106bcb0e365[m
+Merge: a818ebd 5f85aa9
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:38:04 2025 -0400
+
+    Merge pull request #6 from cphcrd22/codex/add-country-names-to-city-suggestions
+    
+    Display country for city suggestions
+
+[33mcommit 5f85aa9155a4c90f9fa713c7e1bd8dbdd3e9e2b3[m[33m ([m[1;31morigin/codex/add-country-names-to-city-suggestions[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:37:48 2025 -0400
+
+    Include country in search suggestions
+
+[33mcommit a818ebd58f40828e4633fa727587eac439454ac4[m
+Merge: 525376e 3f9ceb4
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:24:26 2025 -0400
+
+    Merge pull request #5 from cphcrd22/codex/include-city-name-in-location-card
+    
+    Display city name before country in results
+
+[33mcommit 3f9ceb488b88fbe80df57769cd2102a0f283db8a[m[33m ([m[1;31morigin/codex/include-city-name-in-location-card[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:24:15 2025 -0400
+
+    Show city name before country
+
+[33mcommit 525376e14a517a1809ee3a7d53cfa5e254d37bbe[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Wed Aug 13 21:03:56 2025 -0400
+
+    minor data fix
+
+[33mcommit 0ad14c095f1213fe578ee934541f5ba6a7b5c1fc[m
+Merge: 9c4e928 ae25f04
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Mon Aug 11 23:47:10 2025 -0400
+
+    Merge pull request #4 from cphcrd22/codex/update-resolver-for-city-suggestions
+    
+    feat: include city aliases in lookup
+
+[33mcommit ae25f047c27413b1bdc274448c2a25cf956c978d[m[33m ([m[1;31morigin/codex/update-resolver-for-city-suggestions[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Mon Aug 11 23:46:46 2025 -0400
+
+    feat: include city aliases in lookup
+
+[33mcommit 9c4e928660db8ae057ddcc19566aab1faeac77cf[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Mon Aug 11 23:37:46 2025 -0400
+
+    updated database to include cities
+
+[33mcommit ffcacf6c490f97a389121beb04d605f4bb43dda3[m
+Merge: d0d63ff 9a11097
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 23:03:14 2025 -0400
+
+    Merge pull request #3 from cphcrd22/codex/optimize-front-for-mobile-and-tablet
+    
+    Improve mobile and tablet responsiveness
+
+[33mcommit 9a11097d256c658aaafe05f62eaf1c81920d6229[m[33m ([m[1;31morigin/codex/optimize-front-for-mobile-and-tablet[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 23:01:56 2025 -0400
+
+    Improve mobile and tablet responsiveness
+
+[33mcommit d0d63ff77837676ff72ede844795bc80ddef56a6[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Sun Aug 10 22:31:50 2025 -0400
+
+    front end fixes
+
+[33mcommit eca2c48683c42d122301489352352c456b3b0f80[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Sun Aug 10 22:09:33 2025 -0400
+
+    changed country name front end
+
+[33mcommit 18636a3669cb8c16c8890593da91e9f6adce62ac[m
+Merge: d77e1cd 3c0189a
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 22:07:58 2025 -0400
+
+    Merge pull request #2 from cphcrd22/codex/update-api-to-return-suggestions-in-title-case
+    
+    Return title case country names from suggest API
+
+[33mcommit 3c0189a907852bd6ec468aba6fc9d3218e7c7594[m[33m ([m[1;31morigin/codex/update-api-to-return-suggestions-in-title-case[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 22:07:29 2025 -0400
+
+    Return title case country names from suggest API
+
+[33mcommit d77e1cd7514a7c7ca16dc849d8798f499f53cd14[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Sun Aug 10 21:47:25 2025 -0400
+
+    minor front end changes
+
+[33mcommit 4b105bafb67929b8115d78b614c464c32daf0f32[m
+Merge: 0ed9876 1cec168
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 21:30:31 2025 -0400
+
+    Merge pull request #1 from cphcrd22/codex/remove-sample-data-files-and-connect-resolver
+    
+    chore: switch API to merged dataset
+
+[33mcommit 1cec168b0d163d9072a6f68c2402aed698e23fb4[m[33m ([m[1;31morigin/codex/remove-sample-data-files-and-connect-resolver[m[33m)[m
+Author: cphcrd22 <cphcrd22@gmail.com>
+Date:   Sun Aug 10 21:30:07 2025 -0400
+
+    chore: replace sample data with merged dataset
+
+[33mcommit 0ed98769f471d875baff03ef6a405f5160f505ea[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Sun Aug 10 21:14:27 2025 -0400
+
+    added merge.json
+
+[33mcommit 5cfd68140b23b8863c1b9df1543c4df388558673[m
+Author: Wilson Lee <cphcrd22@gmail.com>
+Date:   Sun Aug 10 20:59:10 2025 -0400
+
+    Initial commit
