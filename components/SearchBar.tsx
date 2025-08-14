@@ -4,10 +4,15 @@ import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check, Spinner } from './icons'
 
+type Suggestion = {
+  name: string
+  country?: string
+}
+
 export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   const [q, setQ] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [open, setOpen] = useState(false)
   const [highlight, setHighlight] = useState(-1)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -59,7 +64,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
     } else if (e.key === 'Enter') {
       e.preventDefault()
       if (open && highlight >= 0 && suggestions[highlight]) {
-        selectSuggestion(suggestions[highlight])
+        selectSuggestion(suggestions[highlight].name)
       } else {
         handleSubmit(q)
       }
@@ -144,16 +149,19 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
             <div className="absolute inset-0 overflow-auto">
               {suggestions.map((s, i) => (
                 <motion.li
-                  key={s}
+                  key={s.name}
                   id={`suggest-${i}`}
                   role="option"
                   aria-selected={i === highlight}
                   className="relative z-[1] flex h-11 cursor-pointer items-center gap-3 px-4 text-sm"
                   onMouseEnter={() => setHighlight(i)}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => selectSuggestion(s)}
+                  onClick={() => selectSuggestion(s.name)}
                 >
-                  <span className="truncate">{s}</span>
+                  <span className="truncate">
+                    {s.name}
+                    {s.country && <span className="text-neutral-500">, {s.country}</span>}
+                  </span>
                 </motion.li>
               ))}
             </div>
