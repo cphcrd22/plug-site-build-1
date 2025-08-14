@@ -38574,7 +38574,8 @@
       "B"
     ],
     "voltage": [
-      "120127"
+      "120",
+      "127"
     ],
     "frequency": [
       "60"
@@ -44326,7 +44327,6 @@
       "Mauban",
       "Mendez-Nuñez",
       "Mercedes",
-      "Mexico",
       "Meycauayan",
       "Midsayap",
       "Minglanilla",
@@ -44797,7 +44797,6 @@
       "Mauban",
       "Mendez-Nunez",
       "Mercedes",
-      "Mexico",
       "Meycauayan",
       "Midsayap",
       "Minglanilla",
