@@ -9,7 +9,7 @@ export type PlugSpec = {
   
   export type LookupOk = {
     query: string
-    resolved: { type: 'country'; countryCode: string; name?: string; flag?: string }
+    resolved: { type: 'country'; countryCode: string; name?: string; flag?: string; city?: string }
     spec: PlugSpec
     confidence: number
     version: string

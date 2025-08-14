@@ -6,7 +6,7 @@ import { flagEmoji } from '@/lib/flags'
 
 export function ResultCard({ data }: { data: {
   query: string
-  resolved: { type: 'country'; countryCode: string; name?: string; flag?: string }
+  resolved: { type: 'country'; countryCode: string; name?: string; flag?: string; city?: string }
   spec: { plugTypes: string[]; voltage: number[]; frequencyHz: number; notes?: string; lastVerified?: string; sources?: string[] }
   confidence: number
   version: string
@@ -17,10 +17,13 @@ export function ResultCard({ data }: { data: {
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-        <div className="flex items-center gap-2 text-lg font-semibold">
-          <span className="text-2xl">{flagEmoji(resolved.countryCode)}</span>
-          <span>{resolved.name ?? resolved.countryCode}</span>
-        </div>
+      <div className="flex items-center gap-2 text-lg font-semibold">
+        <span className="text-2xl">{flagEmoji(resolved.countryCode)}</span>
+        <span>
+          {resolved.city ? `${resolved.city}, ` : ''}
+          {resolved.name ?? resolved.countryCode}
+        </span>
+      </div>
         <span className="text-xs text-neutral-500 sm:text-right">Source: International Electrotechnical Commission</span>
       </div>
 

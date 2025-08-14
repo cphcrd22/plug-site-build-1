@@ -7,7 +7,7 @@ import { SearchBar } from '@/components/SearchBar'
 
 type LookupOk = {
   query: string
-  resolved: { type: 'country'; countryCode: string; name?: string; flag?: string }
+  resolved: { type: 'country'; countryCode: string; name?: string; flag?: string; city?: string }
   spec: {
     plugTypes: string[]
     voltage: [number, number] | [number, number, number] | number[]

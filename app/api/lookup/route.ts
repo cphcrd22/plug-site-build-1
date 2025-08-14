@@ -49,6 +49,23 @@ export async function GET(req: NextRequest) {
     return json(body)
   }
 
+  let city: string | undefined
+  if (norm(entry.country) !== key && norm(entry.code) !== key) {
+    const cityIdx = entry.cities?.findIndex(c => norm(c) === key)
+    if (cityIdx !== undefined && cityIdx >= 0 && entry.cities) {
+      city = entry.cities[cityIdx]
+    } else {
+      const asciiIdx = entry.asciiname?.findIndex(c => norm(c) === key)
+      if (asciiIdx !== undefined && asciiIdx >= 0) {
+        if (entry.cities && entry.cities[asciiIdx]) {
+          city = entry.cities[asciiIdx]
+        } else if (entry.asciiname) {
+          city = entry.asciiname[asciiIdx]
+        }
+      }
+    }
+  }
+
   const spec = {
     plugTypes: entry.plug_type,
     voltage: entry.voltage.map(v => Number(v)),
@@ -58,7 +75,7 @@ export async function GET(req: NextRequest) {
   const version = process.env.DATASET_VERSION || 'DATASET_SAMPLE_2025_08_10'
   const body: LookupOk = {
     query: q,
-    resolved: { type: 'country', countryCode: entry.code, name: entry.country },
+    resolved: { type: 'country', countryCode: entry.code, name: entry.country, city },
     spec,
     confidence: 1.0,
     version,
