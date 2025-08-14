@@ -44,7 +44,15 @@ export async function GET(req: NextRequest) {
   if (!key) return json({ suggestions: [] })
 
   const prefixMatches = entries
-    .filter(e => e.key.startsWith(key))
+    .filter(e => e.key.split(' ').some(w => w.startsWith(key)))
+    .sort((a, b) => {
+      const aCountry = a.country ? 1 : 0
+      const bCountry = b.country ? 1 : 0
+      if (aCountry !== bCountry) return aCountry - bCountry
+      return a.key.startsWith(key) === b.key.startsWith(key)
+        ? a.key.localeCompare(b.key)
+        : a.key.startsWith(key) ? -1 : 1
+    })
     .map(e => ({ ...e, distance: 0 }))
 
   const fuzzyMatches = key.length >= 3
