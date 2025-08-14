@@ -16,20 +16,26 @@ type Entry = {
   cities?: string[]
   asciiname?: string[]
 }
+
+type Suggestion = {
+  name: string
+  country?: string
+}
+
 const data = merged as Entry[]
-const entriesMap = new Map<string, string>()
+const entriesMap = new Map<string, Suggestion>()
 for (const row of data) {
-  entriesMap.set(norm(row.country), row.country)
+  entriesMap.set(norm(row.country), { name: row.country })
   for (const city of row.cities ?? []) {
     const key = norm(city)
-    if (!entriesMap.has(key)) entriesMap.set(key, city)
+    if (!entriesMap.has(key)) entriesMap.set(key, { name: city, country: row.country })
   }
   for (const city of row.asciiname ?? []) {
     const key = norm(city)
-    if (!entriesMap.has(key)) entriesMap.set(key, city)
+    if (!entriesMap.has(key)) entriesMap.set(key, { name: city, country: row.country })
   }
 }
-const entries = Array.from(entriesMap, ([key, name]) => ({ key, name }))
+const entries = Array.from(entriesMap, ([key, s]) => ({ key, ...s }))
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''
@@ -40,6 +46,6 @@ export async function GET(req: NextRequest) {
   const suggestions = entries
     .filter(e => e.key.startsWith(key))
     .slice(0, 10)
-    .map(e => e.name)
+    .map(({ name, country }) => ({ name, country }))
   return json({ suggestions })
 }
