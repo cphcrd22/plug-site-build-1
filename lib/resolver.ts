@@ -175,7 +175,6 @@ export function candidateSearch(
 
   scored.sort((a, b) => b[1] - a[1] || a[0].name.localeCompare(b[0].name));
   const limited = scored.slice(0, K0);
-  limited.sort((a, b) => b[1] - a[1] || a[0].name.localeCompare(b[0].name));
   return limited.slice(0, K).map(([a]) => a);
 }
 
