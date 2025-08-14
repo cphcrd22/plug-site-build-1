@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import merged from '@/data/merged.json'
 import { norm } from '@/lib/norm'
+import { damerauLevenshtein } from '@/lib/distance'
 
 export const runtime = 'edge'
 
@@ -42,10 +43,21 @@ export async function GET(req: NextRequest) {
   const key = norm(q)
   if (!key) return json({ suggestions: [] })
 
-  // prefix-only, exact tokens, no fuzzy
-  const suggestions = entries
+  const prefixMatches = entries
     .filter(e => e.key.startsWith(key))
+    .map(e => ({ ...e, distance: 0 }))
+
+  const fuzzyMatches = key.length >= 3
+    ? entries
+        .filter(e => !e.key.startsWith(key))
+        .map(e => ({ ...e, distance: damerauLevenshtein(key, e.key) }))
+        .filter(e => e.distance <= 2)
+        .sort((a, b) => a.distance - b.distance)
+    : []
+
+  const all = [...prefixMatches, ...fuzzyMatches]
     .slice(0, 10)
     .map(({ name, country }) => ({ name, country }))
-  return json({ suggestions })
+
+  return json({ suggestions: all })
 }
