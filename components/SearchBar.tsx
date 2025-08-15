@@ -68,7 +68,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
     } else if (e.key === 'Enter') {
       e.preventDefault()
       if (open && highlight >= 0 && suggestions[highlight]) {
-        selectSuggestion(suggestions[highlight].name)
+        selectSuggestion(suggestions[highlight])
       } else {
         handleSubmit(q)
       }
@@ -78,12 +78,13 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
     }
   }
 
-  function selectSuggestion(s: string) {
+  function selectSuggestion(s: Suggestion) {
     setDisableSuggest(true)
-    setQ(s)
+    const value = s.country ? `${s.name}, ${s.country}` : s.name
+    setQ(value)
     setOpen(false)
     setSuggestions([])
-    handleSubmit(s)
+    handleSubmit(value)
   }
 
   return (
@@ -183,7 +184,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
                   className="relative z-[1] flex h-11 cursor-pointer items-center gap-3 px-4 text-sm"
                   onMouseEnter={() => setHighlight(i)}
                   onMouseDown={(e) => e.preventDefault()}
-                  onClick={() => selectSuggestion(s.name)}
+                  onClick={() => selectSuggestion(s)}
                 >
                   <span className="truncate">
                     {s.name}

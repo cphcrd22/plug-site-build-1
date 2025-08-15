@@ -24,19 +24,29 @@ type Suggestion = {
 }
 
 const data = merged as Entry[]
-const entriesMap = new Map<string, Suggestion>()
+const entries: { key: string; name: string; country?: string }[] = []
+const dedup = new Set<string>()
 for (const row of data) {
-  entriesMap.set(norm(row.country), { name: row.country })
+  entries.push({ key: norm(row.country), name: row.country })
+
   for (const city of row.cities ?? []) {
-    const key = norm(city)
-    if (!entriesMap.has(key)) entriesMap.set(key, { name: city, country: row.country })
+    const cityKey = norm(city)
+    const unique = `${cityKey}|${norm(row.country)}`
+    if (!dedup.has(unique)) {
+      dedup.add(unique)
+      entries.push({ key: cityKey, name: city, country: row.country })
+    }
   }
+
   for (const city of row.asciiname ?? []) {
-    const key = norm(city)
-    if (!entriesMap.has(key)) entriesMap.set(key, { name: city, country: row.country })
+    const cityKey = norm(city)
+    const unique = `${cityKey}|${norm(row.country)}`
+    if (!dedup.has(unique)) {
+      dedup.add(unique)
+      entries.push({ key: cityKey, name: city, country: row.country })
+    }
   }
 }
-const entries = Array.from(entriesMap, ([key, s]) => ({ key, ...s }))
 
 export async function GET(req: NextRequest) {
   const q = req.nextUrl.searchParams.get('q') ?? ''
