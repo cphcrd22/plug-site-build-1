@@ -25,13 +25,18 @@ type Entry = {
 const data = merged as Entry[]
 const lookup = new Map<string, Entry>()
 for (const row of data) {
-  lookup.set(norm(row.country), row)
+  const countryKey = norm(row.country)
+  lookup.set(countryKey, row)
   lookup.set(norm(row.code), row)
   for (const city of row.cities ?? []) {
-    lookup.set(norm(city), row)
+    const cityKey = norm(city)
+    lookup.set(cityKey, row)
+    lookup.set(`${cityKey} ${countryKey}`, row)
   }
   for (const city of row.asciiname ?? []) {
-    lookup.set(norm(city), row)
+    const cityKey = norm(city)
+    lookup.set(cityKey, row)
+    lookup.set(`${cityKey} ${countryKey}`, row)
   }
 }
 
@@ -50,12 +55,19 @@ export async function GET(req: NextRequest) {
   }
 
   let city: string | undefined
-  if (norm(entry.country) !== key && norm(entry.code) !== key) {
-    const cityIdx = entry.cities?.findIndex(c => norm(c) === key)
+  const countryKey = norm(entry.country)
+  if (countryKey !== key && norm(entry.code) !== key) {
+    const cityIdx = entry.cities?.findIndex(c => {
+      const cKey = norm(c)
+      return cKey === key || `${cKey} ${countryKey}` === key
+    })
     if (cityIdx !== undefined && cityIdx >= 0 && entry.cities) {
       city = entry.cities[cityIdx]
     } else {
-      const asciiIdx = entry.asciiname?.findIndex(c => norm(c) === key)
+      const asciiIdx = entry.asciiname?.findIndex(c => {
+        const cKey = norm(c)
+        return cKey === key || `${cKey} ${countryKey}` === key
+      })
       if (asciiIdx !== undefined && asciiIdx >= 0) {
         if (entry.cities && entry.cities[asciiIdx]) {
           city = entry.cities[asciiIdx]
