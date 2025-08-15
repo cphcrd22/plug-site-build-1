@@ -25,12 +25,11 @@ type LookupNoMatch = { query: string; status: 'no_match' } | { query: string; st
 export default function Page() {
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
-  const [result, setResult] = useState<LookupOk | null>(null)
+  const [results, setResults] = useState<LookupOk[]>([])
 
   async function onSubmit(q: string) {
     if (!q.trim()) return
     setError(null)
-    setResult(null)
     setState('loading')
 
     try {
@@ -43,7 +42,7 @@ export default function Page() {
         return
       }
 
-      setResult(data)
+      setResults((prev) => [data, ...prev])
       setState('done')
       setTimeout(() => setState('idle'), 800)
     } catch (e) {
@@ -64,7 +63,7 @@ export default function Page() {
         Type a <em>country</em> or <em>city</em>.
       </p>
 
-      <div className="mt-8 w-full" aria-live="polite">
+      <div className="mt-8 w-full space-y-4" aria-live="polite">
         {error && (
           <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">
             {error}
@@ -72,16 +71,17 @@ export default function Page() {
         )}
 
         <AnimatePresence>
-          {result && (
+          {results.map((result) => (
             <motion.div
-              key={result.version + result.resolved.countryCode}
+              key={result.version + result.resolved.countryCode + result.query}
+              layout
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
             >
               <ResultCard data={result} />
             </motion.div>
-          )}
+          ))}
         </AnimatePresence>
       </div>
 
