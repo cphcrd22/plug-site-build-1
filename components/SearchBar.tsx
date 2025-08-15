@@ -45,6 +45,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
 
   function handleSubmit(value: string) {
     if (!value.trim()) return
+    inputRef.current?.blur()
     setState('loading')
     onSubmit(value)
     // state will be flipped to done by parent via props? We keep local animation:
