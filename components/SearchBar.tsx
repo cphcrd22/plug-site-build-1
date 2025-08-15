@@ -15,13 +15,14 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
   const [open, setOpen] = useState(false)
   const [highlight, setHighlight] = useState(-1)
+  const [disableSuggest, setDisableSuggest] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const ITEM_H = 44
   const markerY = highlight >= 0 ? highlight * ITEM_H : -9999
 
   useEffect(() => {
     let t: number | undefined
-    if (!q.trim()) {
+    if (!q.trim() || disableSuggest) {
       setSuggestions([])
       setOpen(false)
       setHighlight(-1)
@@ -41,7 +42,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
       }
     }, 120)
     return () => clearTimeout(t)
-  }, [q])
+  }, [q, disableSuggest])
 
   function handleSubmit(value: string) {
     if (!value.trim()) return
@@ -52,6 +53,8 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
     setTimeout(() => setState('done'), 600)
     setTimeout(() => setState('idle'), 1200)
     setOpen(false)
+    setDisableSuggest(true)
+    setSuggestions([])
   }
 
   function onKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
@@ -76,8 +79,10 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   }
 
   function selectSuggestion(s: string) {
+    setDisableSuggest(true)
     setQ(s)
     setOpen(false)
+    setSuggestions([])
     handleSubmit(s)
   }
 
@@ -89,7 +94,10 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
           id="where"
           ref={inputRef}
           value={q}
-          onChange={(e) => setQ(e.target.value)}
+          onChange={(e) => {
+            setDisableSuggest(false)
+            setQ(e.target.value)
+          }}
           onKeyDown={onKeyDown}
           placeholder="I’m going to…"
           autoComplete="off"
