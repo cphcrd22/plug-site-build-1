@@ -61,7 +61,7 @@ export default function Page() {
       <SearchBar onSubmit={onSubmit} />
 
       <p className="mt-3 text-sm text-neutral-600">
-        Type a <em>country</em>, <em>city</em>, or common alias (e.g., <span className="italic">UK</span>, <span className="italic">Holland</span>).
+        Type a <em>country</em> or <em>city</em>.
       </p>
 
       <div className="mt-8 w-full" aria-live="polite">
@@ -86,7 +86,7 @@ export default function Page() {
       </div>
 
       <footer className="mt-10 text-center text-xs text-neutral-500">
-        Demo uses SAMPLE data. Exact-match only. No fuzzy yet.
+        
       </footer>
     </div>
   )
