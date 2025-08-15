@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ArrowRight, Check, Spinner } from './icons'
+import { ArrowRight, Check, Spinner, XMark } from './icons'
 
 type Suggestion = {
   name: string
@@ -107,6 +107,24 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
           aria-controls="suggest-list"
           aria-activedescendant={highlight >= 0 ? `suggest-${highlight}` : undefined}
         />
+        {q && (
+          <button
+            type="button"
+            aria-label="Clear search"
+            title="Clear"
+            onClick={() => {
+              setQ('')
+              setSuggestions([])
+              setOpen(false)
+              setHighlight(-1)
+              setDisableSuggest(false)
+              inputRef.current?.focus()
+            }}
+            className="ml-2 inline-flex h-8 w-8 shrink-0 items-center justify-center text-neutral-400 hover:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+            <XMark />
+          </button>
+        )}
         <button
           aria-label="Search"
           onClick={() => handleSubmit(q)}
