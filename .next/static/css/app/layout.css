@@ -788,9 +788,6 @@ video {
 .font-semibold {
   font-weight: 600;
 }
-.italic {
-  font-style: italic;
-}
 .tracking-tight {
   letter-spacing: -0.025em;
 }
