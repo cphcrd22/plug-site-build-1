@@ -85,8 +85,20 @@ export default function Page() {
         </AnimatePresence>
       </div>
 
+      {results.length > 0 && (
+        <button
+          onClick={() => {
+            setResults([])
+            setError(null)
+          }}
+          className="mt-4 text-xs text-neutral-500 underline hover:text-neutral-700"
+        >
+          Clear results
+        </button>
+      )}
+
       <footer className="mt-10 text-center text-xs text-neutral-500">
-        
+
       </footer>
     </div>
   )
