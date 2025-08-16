@@ -90,7 +90,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   return (
     <div className="relative w-full">
       <label htmlFor="where" className="sr-only">Destination</label>
-      <div className="flex w-full items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm transition-shadow duration-150">        
+      <div className="flex w-full items-center rounded-full border border-neutral-200 bg-white pl-5 pr-2 shadow-sm transition-shadow duration-150 dark:border-neutral-700 dark:bg-neutral-800">
         <input
           id="where"
           ref={inputRef}
@@ -102,7 +102,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
           onKeyDown={onKeyDown}
           placeholder="I’m going to…"
           autoComplete="off"
-          className="h-14 w-full rounded-full bg-transparent text-base outline-none placeholder:text-neutral-400"
+          className="h-14 w-full rounded-full bg-transparent text-base outline-none placeholder:text-neutral-400 dark:placeholder:text-neutral-500"
           aria-autocomplete="list"
           aria-expanded={open}
           aria-controls="suggest-list"
@@ -121,7 +121,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
               setDisableSuggest(false)
               inputRef.current?.focus()
             }}
-            className="ml-2 inline-flex h-8 w-8 shrink-0 items-center justify-center text-neutral-400 hover:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+            className="ml-2 inline-flex h-8 w-8 shrink-0 items-center justify-center text-neutral-400 hover:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-emerald-600 dark:hover:text-neutral-200"
           >
             <XMark />
           </button>
@@ -161,7 +161,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -2 }}
             transition={{ duration: 0.12 }}
-            className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg relative"
+            className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg relative dark:border-neutral-700 dark:bg-neutral-800"
             style={{ height: Math.min(8, suggestions.length) * ITEM_H }}
           >
             {highlight >= 0 && (
@@ -171,7 +171,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
                 initial={false}
                 animate={{ y: markerY }}
                 transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-                className="pointer-events-none absolute left-0 top-0 h-11 w-full rounded-md bg-neutral-100"
+                className="pointer-events-none absolute left-0 top-0 h-11 w-full rounded-md bg-neutral-100 dark:bg-neutral-700"
               />
             )}
             <div className="absolute inset-0 overflow-auto">
@@ -188,7 +188,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
                 >
                   <span className="truncate">
                     {s.name}
-                    {s.country && <span className="text-neutral-500">, {s.country}</span>}
+                    {s.country && <span className="text-neutral-500 dark:text-neutral-400">, {s.country}</span>}
                   </span>
                 </motion.li>
               ))}

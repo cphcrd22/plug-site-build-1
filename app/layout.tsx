@@ -1,5 +1,7 @@
 import './globals.css'
 import type { Metadata, Viewport } from 'next'
+import { ThemeProvider } from '@/components/ThemeProvider'
+import { ThemeToggle } from '@/components/ThemeToggle'
 
 export const metadata: Metadata = {
   title: 'Plug Type Finder — Exact-Match MVP',
@@ -14,9 +16,14 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-neutral-50 text-neutral-900 antialiased">
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen bg-neutral-50 text-neutral-900 antialiased transition-colors dark:bg-neutral-900 dark:text-neutral-50">
+        <ThemeProvider>
+          <div className="absolute right-4 top-4">
+            <ThemeToggle />
+          </div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )
