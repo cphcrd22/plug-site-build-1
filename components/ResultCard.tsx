@@ -13,6 +13,8 @@ export function ResultCard({ data }: { data: {
 }}) {
   const { resolved, spec } = data
   const verified = spec.lastVerified ? new Date(spec.lastVerified).toLocaleDateString() : '—'
+  const country = resolved.name || resolved.countryCode
+  const showP3Pro = resolved.countryCode !== 'SZ' && resolved.countryCode !== 'LS'
 
   return (
     <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
@@ -81,24 +83,40 @@ export function ResultCard({ data }: { data: {
         </details>
       </div>
 
-      <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-sm">
-        <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
-          <span className="text-center sm:text-left">Want one charger for everywhere? <strong>P3 Pro</strong> works in every country.</span>
-          <a
-            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-3 py-1.5 font-medium text-white hover:bg-emerald-600"
-            href="https://infinacore.com/products/p3-pro"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <span className="relative z-10">Learn more ↗</span>
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,.35),transparent)] opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
-              style={{ animation: 'shimmer 1.2s linear infinite' }}
-            />
-          </a>
+      {showP3Pro && (
+        <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-sm">
+          <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+            <span className="text-center sm:text-left">
+              {resolved.city ? (
+                <>
+                  {`Want a charger for ${resolved.city}? `}
+                  <strong>P3 Pro</strong>
+                  {` works in ${country} — and anywhere else.`}
+                </>
+              ) : (
+                <>
+                  {`Want a charger for ${country}? `}
+                  <strong>P3 Pro</strong>
+                  {` works there and anywhere else.`}
+                </>
+              )}
+            </span>
+            <a
+              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-3 py-1.5 font-medium text-white hover:bg-emerald-600"
+              href="https://infinacore.com/products/p3-pro"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="relative z-10">Learn more ↗</span>
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-[linear-gradient(110deg,transparent,rgba(255,255,255,.35),transparent)] opacity-0 transition duration-700 group-hover:translate-x-full group-hover:opacity-100"
+                style={{ animation: 'shimmer 1.2s linear infinite' }}
+              />
+            </a>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
