@@ -59,13 +59,13 @@ export default function Page() {
 
       <SearchBar onSubmit={onSubmit} />
 
-      <p className="mt-3 text-sm text-neutral-600">
+      <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-300">
         Type a <em>country</em> or <em>city</em>.
       </p>
 
       <div className="mt-8 w-full space-y-4" aria-live="polite">
         {error && (
-          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700">
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-500/40 dark:bg-red-950 dark:text-red-300">
             {error}
           </div>
         )}
@@ -91,13 +91,13 @@ export default function Page() {
             setResults([])
             setError(null)
           }}
-          className="mt-4 text-xs text-neutral-500 underline hover:text-neutral-700"
+          className="mt-4 text-xs text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
         >
           Clear results
         </button>
       )}
 
-      <footer className="mt-10 text-center text-xs text-neutral-500">
+      <footer className="mt-10 text-center text-xs text-neutral-500 dark:text-neutral-400">
 
       </footer>
     </div>
