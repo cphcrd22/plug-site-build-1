@@ -18,7 +18,7 @@ export function ResultCard({ data }: { data: {
   const showP3Pro = resolved.countryCode !== 'SZ' && resolved.countryCode !== 'LS'
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm">
+    <div className="rounded-2xl border border-neutral-200 bg-white p-5 shadow-sm dark:border-neutral-700 dark:bg-neutral-800">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex items-center gap-2 text-lg font-semibold">
         <span className="text-2xl">{flagEmoji(resolved.countryCode)}</span>
@@ -27,13 +27,13 @@ export function ResultCard({ data }: { data: {
           {resolved.name ?? resolved.countryCode}
         </span>
       </div>
-        <span className="text-xs text-neutral-500 sm:text-right">Source: International Electrotechnical Commission</span>
+        <span className="text-xs text-neutral-500 dark:text-neutral-400 sm:text-right">Source: International Electrotechnical Commission</span>
       </div>
 
 
       <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-neutral-600">Type(s)</span>
+          <span className="text-sm font-medium text-neutral-600 dark:text-neutral-300">Type(s)</span>
           <div className="flex flex-wrap gap-2">
             {spec.plugTypes.map((t) => (
               <motion.span
@@ -41,7 +41,7 @@ export function ResultCard({ data }: { data: {
                 initial={{ y: -4, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 24 }}
-                className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-neutral-200 bg-white px-3 text-sm font-semibold shadow-sm"
+                className="inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-neutral-200 bg-white px-3 text-sm font-semibold shadow-sm dark:border-neutral-600 dark:bg-neutral-700"
               >
                 {t}
               </motion.span>
@@ -52,7 +52,7 @@ export function ResultCard({ data }: { data: {
         <div className="flex items-center gap-2">
           <Bolt />
           <div>
-            <div className="text-xs text-neutral-500">Voltage</div>
+            <div className="text-xs text-neutral-500 dark:text-neutral-400">Voltage</div>
             <div className="text-base font-semibold">
               {spec.voltage.length === 2
                 ? `${spec.voltage[0]}–${spec.voltage[1]} V`
@@ -64,7 +64,7 @@ export function ResultCard({ data }: { data: {
         <div className="flex items-center gap-2">
           <Wave />
           <div>
-            <div className="text-xs text-neutral-500">Frequency</div>
+            <div className="text-xs text-neutral-500 dark:text-neutral-400">Frequency</div>
             <div className="text-base font-semibold">{spec.frequencyHz} Hz</div>
           </div>
         </div>
@@ -72,20 +72,20 @@ export function ResultCard({ data }: { data: {
 
       <div className="mt-4">
         <details className="group">
-          <summary className="flex cursor-pointer list-none items-center justify-between text-sm text-neutral-700">
+          <summary className="flex cursor-pointer list-none items-center justify-between text-sm text-neutral-700 dark:text-neutral-300">
             <span>More details</span>
             <span aria-hidden className="ml-2 transition-transform group-open:rotate-90">▶</span>
           </summary>
-          <div className="pt-2 text-sm text-neutral-700">
+          <div className="pt-2 text-sm text-neutral-700 dark:text-neutral-300">
             <p className="mb-2"><strong>Safety tip:</strong> <em>Adapters change shape; converters change voltage.</em> US devices (120V) in 230V regions need a converter, not just an adapter.</p>
             {spec.notes && <p className="mb-2">{spec.notes}</p>}
-            <p className="text-xs text-neutral-500">Confidence: {(data.confidence * 100).toFixed(0)}%</p>
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">Confidence: {(data.confidence * 100).toFixed(0)}%</p>
           </div>
         </details>
       </div>
 
       {showP3Pro && (
-        <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-sm">
+        <div className="mt-4 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-sm dark:border-neutral-700 dark:bg-neutral-900">
           <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
             <span className="text-center sm:text-left">
               {`Want a charger for ${location}? `}

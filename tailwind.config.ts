@@ -5,6 +5,7 @@ export default {
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}'
   ],
+  darkMode: 'class',
   theme: {
     extend: {}
   },
