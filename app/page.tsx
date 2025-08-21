@@ -52,7 +52,7 @@ export default function Page() {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-12 sm:py-16">
+    <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-12 sm:py-16 md:min-h-screen md:py-0 md:justify-center">
       <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
         What plug type do I need?
       </h1>
