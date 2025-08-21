@@ -93,7 +93,7 @@ export function ResultCard({ data }: { data: {
               {` works in ${country} — and anywhere else.`}
             </span>
             <a
-              className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-emerald-500 px-3 py-1.5 font-medium text-white hover:bg-emerald-600"
+              className="group relative inline-flex shrink-0 items-center justify-center overflow-hidden whitespace-nowrap rounded-full bg-emerald-500 px-3 py-1.5 font-medium text-white hover:bg-emerald-600"
               href="https://infinacore.com/products/p3-pro"
               target="_blank"
               rel="noreferrer"
