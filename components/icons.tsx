@@ -17,6 +17,12 @@ export const Spinner = () => (
     </svg>
   )
 
+export const ArrowLeft = () => (
+  <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
+    <path d="M19 12H5m6-7l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
   export const XMark = () => (
     <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden>
       <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />

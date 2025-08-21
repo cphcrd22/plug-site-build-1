@@ -1,9 +1,9 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { flagEmoji } from '@/lib/flags'
-import { ArrowRight } from './icons'
+import { ArrowLeft, ArrowRight } from './icons'
 
 const ORIGIN = {
   name: 'United States',
@@ -104,6 +104,23 @@ type Props = {
 export function SmartSuggestions({ onSelect }: Props) {
   const origin = ORIGIN
   const scrollRef = useRef<HTMLDivElement>(null)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(true)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+
+    const update = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = el
+      setCanScrollLeft(scrollLeft > 0)
+      setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1)
+    }
+
+    update()
+    el.addEventListener('scroll', update)
+    return () => el.removeEventListener('scroll', update)
+  }, [])
 
   return (
     <div className="mt-6 w-full">
@@ -149,9 +166,17 @@ export function SmartSuggestions({ onSelect }: Props) {
         </div>
         <button
           type="button"
-          className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white p-2 shadow-sm hover:shadow-md dark:bg-neutral-800"
+          className={`absolute left-0 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/70 bg-white/70 p-2 shadow-sm backdrop-blur-md hover:shadow-md dark:border-neutral-700/70 dark:bg-neutral-800/70 md:flex ${canScrollLeft ? '' : 'invisible'}`}
+          onClick={() => scrollRef.current?.scrollBy({ left: -(scrollRef.current?.clientWidth ?? 0), behavior: 'smooth' })}
+          aria-label="Scroll suggestions left"
+        >
+          <ArrowLeft />
+        </button>
+        <button
+          type="button"
+          className={`absolute right-0 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-neutral-200/70 bg-white/70 p-2 shadow-sm backdrop-blur-md hover:shadow-md dark:border-neutral-700/70 dark:bg-neutral-800/70 md:flex ${canScrollRight ? '' : 'invisible'}`}
           onClick={() => scrollRef.current?.scrollBy({ left: scrollRef.current?.clientWidth ?? 0, behavior: 'smooth' })}
-          aria-label="Scroll suggestions"
+          aria-label="Scroll suggestions right"
         >
           <ArrowRight />
         </button>
