@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowRight, Check, Spinner, XMark } from './icons'
 
@@ -9,7 +9,12 @@ type Suggestion = {
   country?: string
 }
 
-export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
+export type SearchBarHandle = {
+  setValue: (v: string) => void
+}
+
+export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => void }>(
+  function SearchBar({ onSubmit }, ref) {
   const [q, setQ] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
@@ -19,6 +24,17 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
   const inputRef = useRef<HTMLInputElement>(null)
   const ITEM_H = 44
   const markerY = highlight >= 0 ? highlight * ITEM_H : -9999
+
+  useImperativeHandle(ref, () => ({
+    setValue(value: string) {
+      setDisableSuggest(true)
+      setQ(value)
+      setOpen(false)
+      setSuggestions([])
+      setHighlight(-1)
+      inputRef.current?.focus()
+    },
+  }))
 
   useEffect(() => {
     let t: number | undefined
@@ -198,4 +214,4 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
       </AnimatePresence>
     </div>
   )
-}
+})
