@@ -161,7 +161,7 @@ export function SearchBar({ onSubmit }: { onSubmit: (q: string) => void }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -2 }}
             transition={{ duration: 0.12 }}
-            className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg relative dark:border-neutral-700 dark:bg-neutral-800"
+            className="absolute z-10 mt-2 w-full overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-800"
             style={{ height: Math.min(8, suggestions.length) * ITEM_H }}
           >
             {highlight >= 0 && (
