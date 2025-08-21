@@ -54,7 +54,7 @@ export async function GET(req: NextRequest) {
   if (!key) return json({ suggestions: [] })
 
   const prefixMatches = entries
-    .filter(e => e.key.split(' ').some(w => w.startsWith(key)))
+    .filter(e => e.key.startsWith(key) || e.key.split(' ').some(w => w.startsWith(key)))
     .sort((a, b) => {
       const aCountry = a.country ? 1 : 0
       const bCountry = b.country ? 1 : 0
