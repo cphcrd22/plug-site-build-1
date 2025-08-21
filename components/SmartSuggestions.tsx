@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { flagEmoji } from '@/lib/flags'
+import { ArrowRight } from './icons'
 
 const ORIGIN = {
   name: 'United States',
@@ -42,7 +43,9 @@ export function SmartSuggestions({ onSelect }: Props) {
     <div className="mt-6 w-full">
       <div className="mb-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>Smart suggestions (from {origin.name})</span>
-        <span>Swipe →</span>
+        <span className="hidden md:inline-block" aria-hidden>
+          <ArrowRight />
+        </span>
       </div>
       <div className="flex gap-3 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         {SUGGESTIONS.map((s, i) => {
