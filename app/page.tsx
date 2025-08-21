@@ -1,9 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ResultCard } from '@/components/ResultCard'
-import { SearchBar } from '@/components/SearchBar'
+import { SearchBar, SearchBarHandle } from '@/components/SearchBar'
+import { SmartSuggestions } from '@/components/SmartSuggestions'
 
 type LookupOk = {
   query: string
@@ -26,6 +27,7 @@ export default function Page() {
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<LookupOk[]>([])
+  const searchRef = useRef<SearchBarHandle>(null)
 
   async function onSubmit(q: string) {
     if (!q.trim()) return
@@ -57,11 +59,13 @@ export default function Page() {
         What plug type do I need?
       </h1>
 
-      <SearchBar onSubmit={onSubmit} />
+        <SearchBar ref={searchRef} onSubmit={onSubmit} />
 
-      <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-        Type a <em>country</em> or <em>city</em>.
-      </p>
+        <SmartSuggestions onSelect={(country) => searchRef.current?.setValue(country)} />
+
+        <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
+          Type a <em>country</em> or <em>city</em>.
+        </p>
 
       <div className="mt-8 w-full space-y-4" aria-live="polite">
         {error && (
@@ -85,21 +89,30 @@ export default function Page() {
         </AnimatePresence>
       </div>
 
-      {results.length > 0 && (
-        <button
-          onClick={() => {
-            setResults([])
-            setError(null)
-          }}
-          className="mt-4 text-xs text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+        {results.length > 0 && (
+          <button
+            onClick={() => {
+              setResults([])
+              setError(null)
+            }}
+            className="mt-4 text-xs text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+          >
+            Clear results
+          </button>
+        )}
+
+        <a
+          href="https://infinacore.com/products/p3-pro"
+          target="_blank"
+          rel="noreferrer"
+          className="mt-12 inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600"
         >
-          Clear results
-        </button>
-      )}
+          Get the P3 Pro — works in every country
+        </a>
 
-      <footer className="mt-10 text-center text-xs text-neutral-500 dark:text-neutral-400">
+        <footer className="mt-10 text-center text-xs text-neutral-500 dark:text-neutral-400">
 
-      </footer>
-    </div>
-  )
-}
+        </footer>
+      </div>
+    )
+  }
