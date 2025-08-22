@@ -14,8 +14,10 @@ export type SearchBarHandle = {
   search: (v: string) => void
 }
 
-export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => void }>(
-  function SearchBar({ onSubmit }, ref) {
+export const SearchBar = forwardRef<
+  SearchBarHandle,
+  { onSubmit: (q: string, fromSuggestion?: boolean) => void }
+>(function SearchBar({ onSubmit }, ref) {
   const [q, setQ] = useState('')
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
@@ -41,7 +43,7 @@ export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => 
       setOpen(false)
       setSuggestions([])
       setHighlight(-1)
-      handleSubmit(value)
+      handleSubmit(value, true)
     },
   }))
 
@@ -69,11 +71,11 @@ export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => 
     return () => clearTimeout(t)
   }, [q, disableSuggest])
 
-  function handleSubmit(value: string) {
+  function handleSubmit(value: string, fromSuggestion = false) {
     if (!value.trim()) return
     inputRef.current?.blur()
     setState('loading')
-    onSubmit(value)
+    onSubmit(value, fromSuggestion)
     // state will be flipped to done by parent via props? We keep local animation:
     setTimeout(() => setState('done'), 600)
     setTimeout(() => setState('idle'), 1200)

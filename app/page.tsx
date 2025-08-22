@@ -27,9 +27,10 @@ export default function Page() {
   const [state, setState] = useState<'idle' | 'loading' | 'done'>('idle')
   const [error, setError] = useState<string | null>(null)
   const [results, setResults] = useState<LookupOk[]>([])
+  const [showSuggestions, setShowSuggestions] = useState(true)
   const searchRef = useRef<SearchBarHandle>(null)
 
-  async function onSubmit(q: string) {
+  async function onSubmit(q: string, fromSuggestion?: boolean) {
     if (!q.trim()) return
     setError(null)
     setState('loading')
@@ -47,6 +48,7 @@ export default function Page() {
       setResults((prev) => [data, ...prev])
       setState('done')
       setTimeout(() => setState('idle'), 800)
+      if (!fromSuggestion) setShowSuggestions(false)
     } catch (e) {
       setError('Something went wrong. Please try again.')
       setState('idle')
@@ -61,7 +63,19 @@ export default function Page() {
 
         <SearchBar ref={searchRef} onSubmit={onSubmit} />
 
-        <SmartSuggestions onSelect={(country) => searchRef.current?.search(country)} />
+        {showSuggestions ? (
+          <SmartSuggestions
+            onSelect={(country) => searchRef.current?.search(country)}
+            onHide={() => setShowSuggestions(false)}
+          />
+        ) : (
+          <button
+            onClick={() => setShowSuggestions(true)}
+            className="mt-6 text-xs text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+          >
+            Show smart suggestions
+          </button>
+        )}
 
       <div className="mt-8 w-full space-y-4" aria-live="polite">
         {error && (

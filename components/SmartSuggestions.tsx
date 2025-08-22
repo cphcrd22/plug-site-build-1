@@ -58,9 +58,10 @@ const SUGGESTIONS = RECOMMENDED.map(({ city, country }) => {
 
 type Props = {
   onSelect: (country: string) => void
+  onHide?: () => void
 }
 
-export function SmartSuggestions({ onSelect }: Props) {
+export function SmartSuggestions({ onSelect, onHide }: Props) {
   const origin = ORIGIN
   const scrollRef = useRef<HTMLDivElement>(null)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -85,6 +86,15 @@ export function SmartSuggestions({ onSelect }: Props) {
     <div className="mt-6 w-full">
       <div className="mb-2 flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400">
         <span>Smart suggestions (from {origin.name})</span>
+        {onHide && (
+          <button
+            type="button"
+            onClick={onHide}
+            className="text-neutral-500 underline hover:text-neutral-700 dark:text-neutral-400 dark:hover:text-neutral-200"
+          >
+            Hide
+          </button>
+        )}
       </div>
       <div className="relative">
         <div
