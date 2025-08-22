@@ -27,7 +27,10 @@ export function ResultCard({ data }: { data: {
           {resolved.name ?? resolved.countryCode}
         </span>
       </div>
-        <span className="text-xs text-neutral-500 sm:text-right dark:text-neutral-400">Source: International Electrotechnical Commission</span>
+        <div className="text-xs text-neutral-500 sm:text-right dark:text-neutral-400">
+          <div>Source: International Electrotechnical Commission</div>
+          <div>Last updated September 2025</div>
+        </div>
       </div>
 
 
