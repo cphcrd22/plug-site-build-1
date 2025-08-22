@@ -125,7 +125,7 @@ export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => 
             setQ(e.target.value)
           }}
           onKeyDown={onKeyDown}
-          placeholder="I’m going to…"
+          placeholder="Type a country or city"
           autoComplete="off"
           className="h-14 w-full rounded-full bg-transparent text-base outline-none placeholder:text-neutral-400 dark:text-neutral-100 dark:placeholder:text-neutral-500"
           aria-autocomplete="list"

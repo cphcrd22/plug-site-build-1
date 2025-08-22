@@ -63,10 +63,6 @@ export default function Page() {
 
         <SmartSuggestions onSelect={(country) => searchRef.current?.search(country)} />
 
-        <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
-          Type a <em>country</em> or <em>city</em>.
-        </p>
-
       <div className="mt-8 w-full space-y-4" aria-live="polite">
         {error && (
           <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-red-700 dark:border-red-900 dark:bg-red-900/20 dark:text-red-300">
