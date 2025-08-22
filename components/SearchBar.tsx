@@ -11,6 +11,7 @@ type Suggestion = {
 
 export type SearchBarHandle = {
   setValue: (v: string) => void
+  search: (v: string) => void
 }
 
 export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => void }>(
@@ -33,6 +34,14 @@ export const SearchBar = forwardRef<SearchBarHandle, { onSubmit: (q: string) => 
       setSuggestions([])
       setHighlight(-1)
       inputRef.current?.focus()
+    },
+    search(value: string) {
+      setDisableSuggest(true)
+      setQ(value)
+      setOpen(false)
+      setSuggestions([])
+      setHighlight(-1)
+      handleSubmit(value)
     },
   }))
 
