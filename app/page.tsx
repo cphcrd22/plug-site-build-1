@@ -70,16 +70,18 @@ export default function Page() {
         <span className="flex-none">What plug do I need for</span>
         <span className="ml-1 min-w-0">
           <AnimatePresence mode="wait" initial={false}>
-            <motion.span
+            <motion.button
+              type="button"
               key={locations[titleIndex]}
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -4 }}
               transition={{ duration: 0.2 }}
-              className="block underline"
+              className="block underline cursor-pointer"
+              onClick={() => searchRef.current?.search(locations[titleIndex])}
             >
               {locations[titleIndex]}
-            </motion.span>
+            </motion.button>
           </AnimatePresence>
         </span>
         <span className="flex-none">?</span>
