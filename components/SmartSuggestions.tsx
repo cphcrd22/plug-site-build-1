@@ -54,12 +54,13 @@ const SUGGESTIONS = RECOMMENDED.map(({ city, country }) => {
   return {
     code: entry.code,
     name: city,
+    country,
     plugTypes: entry.plug_type.map(pt => `Type ${pt}`),
   }
-}).filter(Boolean) as { code: string; name: string; plugTypes: string[] }[]
+}).filter(Boolean) as { code: string; name: string; country: string; plugTypes: string[] }[]
 
 type Props = {
-  onSelect: (country: string) => void
+  onSelect: (query: string) => void
   onHide?: () => void
 }
 
@@ -109,7 +110,7 @@ export function SmartSuggestions({ onSelect, onHide }: Props) {
             return (
               <motion.button
                 key={s.code + i}
-                onClick={() => onSelect(s.name)}
+                onClick={() => onSelect(`${s.name}, ${s.country}`)}
                 initial={{ opacity: 0, x: 24 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.1 }}
