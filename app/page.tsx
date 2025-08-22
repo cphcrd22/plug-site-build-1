@@ -97,15 +97,6 @@ export default function Page() {
           </button>
         )}
 
-        <a
-          href="https://infinacore.com/products/p3-pro"
-          target="_blank"
-          rel="noreferrer"
-          className="mt-12 inline-flex items-center justify-center rounded-full bg-emerald-500 px-6 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600"
-        >
-          Get the P3 Pro — works in every country
-        </a>
-
         <footer className="mt-10 text-center text-xs text-neutral-500 dark:text-neutral-400">
 
         </footer>
