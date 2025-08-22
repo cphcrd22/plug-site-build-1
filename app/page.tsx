@@ -66,8 +66,23 @@ export default function Page() {
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-12 sm:py-16 md:min-h-screen md:py-0 md:justify-center">
-      <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
-        What plug type do I need for {locations[titleIndex]}?
+      <h1 className="mb-8 flex flex-nowrap items-baseline justify-center overflow-hidden text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
+        <span className="flex-none">What plug type do I need for</span>
+        <span className="ml-1 min-w-0">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={locations[titleIndex]}
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.2 }}
+              className="block truncate underline"
+            >
+              {locations[titleIndex]}
+            </motion.span>
+          </AnimatePresence>
+        </span>
+        <span className="flex-none">?</span>
       </h1>
 
         <SearchBar ref={searchRef} onSubmit={onSubmit} />
