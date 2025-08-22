@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ResultCard } from '@/components/ResultCard'
 import { SearchBar, SearchBarHandle } from '@/components/SearchBar'
-import { SmartSuggestions } from '@/components/SmartSuggestions'
+import { SmartSuggestions, SUGGESTION_NAMES } from '@/components/SmartSuggestions'
 
 type LookupOk = {
   query: string
@@ -29,6 +29,15 @@ export default function Page() {
   const [results, setResults] = useState<LookupOk[]>([])
   const [showSuggestions, setShowSuggestions] = useState(true)
   const searchRef = useRef<SearchBarHandle>(null)
+  const [titleIndex, setTitleIndex] = useState(0)
+  const locations = SUGGESTION_NAMES
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setTitleIndex((i) => (i + 1) % locations.length)
+    }, 3000)
+    return () => clearInterval(id)
+  }, [locations.length])
 
   async function onSubmit(q: string, fromSuggestion?: boolean) {
     if (!q.trim()) return
@@ -58,7 +67,7 @@ export default function Page() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col items-center px-4 py-12 sm:py-16 md:min-h-screen md:py-0 md:justify-center">
       <h1 className="mb-8 text-center text-2xl font-extrabold tracking-tight sm:text-3xl md:text-4xl">
-        What plug type do I need?
+        What plug type do I need for {locations[titleIndex]}?
       </h1>
 
         <SearchBar ref={searchRef} onSubmit={onSubmit} />
