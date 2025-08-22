@@ -61,7 +61,7 @@ export default function Page() {
 
         <SearchBar ref={searchRef} onSubmit={onSubmit} />
 
-        <SmartSuggestions onSelect={(country) => searchRef.current?.setValue(country)} />
+        <SmartSuggestions onSelect={(country) => searchRef.current?.search(country)} />
 
         <p className="mt-3 text-sm text-neutral-600 dark:text-neutral-400">
           Type a <em>country</em> or <em>city</em>.
