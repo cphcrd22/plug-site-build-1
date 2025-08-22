@@ -46,6 +46,8 @@ const RECOMMENDED = [
   { city: 'Vienna', country: 'Austria' },
 ]
 
+export const SUGGESTION_NAMES = RECOMMENDED.flatMap(({ city, country }) => [city, country])
+
 const SUGGESTIONS = RECOMMENDED.map(({ city, country }) => {
   const entry = countryMap[country]
   if (!entry) return null
