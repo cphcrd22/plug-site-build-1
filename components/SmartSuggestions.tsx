@@ -4,74 +4,57 @@ import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { flagEmoji } from '@/lib/flags'
 import { ArrowLeft, ArrowRight } from './icons'
+import merged from '@/data/merged.json'
 
-const ORIGIN = {
-  name: 'United States',
-  plugTypes: ['Type A', 'Type B'],
+type CountryEntry = {
+  code: string
+  country: string
+  plug_type: string[]
 }
 
-const SUGGESTIONS = [
-  {
-    code: 'GB',
-    name: 'United Kingdom',
-    plugTypes: ['Type G'],
-  },
-  {
-    code: 'JP',
-    name: 'Japan',
-    plugTypes: ['Type A', 'Type B'],
-  },
-  {
-    code: 'MX',
-    name: 'Mexico',
-    plugTypes: ['Type A', 'Type B'],
-  },
-  {
-    code: 'TH',
-    name: 'Bangkok',
-    plugTypes: ['Type A', 'Type B', 'Type C', 'Type O'],
-  },
-  {
-    code: 'TR',
-    name: 'Istanbul',
-    plugTypes: ['Type C', 'Type F'],
-  },
-  {
-    code: 'HK',
-    name: 'Hong Kong',
-    plugTypes: ['Type G', 'Type D', 'Type M'],
-  },
-  {
-    code: 'SA',
-    name: 'Mecca',
-    plugTypes: ['Type G'],
-  },
-  {
-    code: 'TR',
-    name: 'Antalya',
-    plugTypes: ['Type C', 'Type F'],
-  },
-  {
-    code: 'AE',
-    name: 'Dubai',
-    plugTypes: ['Type G'],
-  },
-  {
-    code: 'MO',
-    name: 'Macau',
-    plugTypes: ['Type D', 'Type F', 'Type G', 'Type M'],
-  },
-  {
-    code: 'FR',
-    name: 'Paris',
-    plugTypes: ['Type C', 'Type E'],
-  },
-  {
-    code: 'MY',
-    name: 'Kuala Lumpur',
-    plugTypes: ['Type C', 'Type G', 'Type M'],
-  },
+const countryMap: Record<string, CountryEntry> = {}
+for (const entry of merged as CountryEntry[]) {
+  countryMap[entry.country] = entry
+}
+
+const ORIGIN_COUNTRY = 'United States'
+const ORIGIN = {
+  name: ORIGIN_COUNTRY,
+  plugTypes: countryMap[ORIGIN_COUNTRY]?.plug_type.map(pt => `Type ${pt}`) ?? [],
+}
+
+const RECOMMENDED = [
+  { city: 'Bangkok', country: 'Thailand' },
+  { city: 'London', country: 'United Kingdom' },
+  { city: 'Paris', country: 'France' },
+  { city: 'Dubai', country: 'United Arab Emirates' },
+  { city: 'Istanbul', country: 'Turkey' },
+  { city: 'Hong Kong', country: 'Hong Kong' },
+  { city: 'Antalya', country: 'Turkey' },
+  { city: 'Macau', country: 'Macau' },
+  { city: 'Mecca', country: 'Saudi Arabia' },
+  { city: 'Kuala Lumpur', country: 'Malaysia' },
+  { city: 'Singapore', country: 'Singapore' },
+  { city: 'Rome', country: 'Italy' },
+  { city: 'Tokyo', country: 'Japan' },
+  { city: 'Barcelona', country: 'Spain' },
+  { city: 'Prague', country: 'Czech Republic' },
+  { city: 'Seoul', country: 'South Korea' },
+  { city: 'Amsterdam', country: 'Netherlands' },
+  { city: 'Milan', country: 'Italy' },
+  { city: 'Cancún', country: 'Mexico' },
+  { city: 'Vienna', country: 'Austria' },
 ]
+
+const SUGGESTIONS = RECOMMENDED.map(({ city, country }) => {
+  const entry = countryMap[country]
+  if (!entry) return null
+  return {
+    code: entry.code,
+    name: city,
+    plugTypes: entry.plug_type.map(pt => `Type ${pt}`),
+  }
+}).filter(Boolean) as { code: string; name: string; plugTypes: string[] }[]
 
 type Props = {
   onSelect: (country: string) => void
