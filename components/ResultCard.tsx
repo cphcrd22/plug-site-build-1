@@ -29,7 +29,7 @@ export function ResultCard({ data }: { data: {
       </div>
         <div className="text-xs text-neutral-500 sm:text-right dark:text-neutral-400">
           <div>Source: International Electrotechnical Commission</div>
-          <div>Last updated September 2025</div>
+          <div>Updated: September 2025</div>
         </div>
       </div>
 
