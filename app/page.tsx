@@ -91,7 +91,7 @@ export default function Page() {
 
         {showSuggestions ? (
           <SmartSuggestions
-            onSelect={(country) => searchRef.current?.search(country)}
+            onSelect={(query) => searchRef.current?.search(query)}
             onHide={() => setShowSuggestions(false)}
           />
         ) : (
