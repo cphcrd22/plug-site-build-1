@@ -15,85 +15,61 @@ const SUGGESTIONS = [
     code: 'GB',
     name: 'United Kingdom',
     plugTypes: ['Type G'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'JP',
     name: 'Japan',
     plugTypes: ['Type A', 'Type B'],
-    voltage: '100V',
-    frequency: '50/60Hz',
   },
   {
     code: 'MX',
     name: 'Mexico',
     plugTypes: ['Type A', 'Type B'],
-    voltage: '127V',
-    frequency: '60Hz',
   },
   {
     code: 'TH',
     name: 'Bangkok',
     plugTypes: ['Type A', 'Type B', 'Type C', 'Type O'],
-    voltage: '220V',
-    frequency: '50Hz',
   },
   {
     code: 'TR',
     name: 'Istanbul',
     plugTypes: ['Type C', 'Type F'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'HK',
     name: 'Hong Kong',
     plugTypes: ['Type G', 'Type D', 'Type M'],
-    voltage: '220V',
-    frequency: '50Hz',
   },
   {
     code: 'SA',
     name: 'Mecca',
     plugTypes: ['Type G'],
-    voltage: '220/230V',
-    frequency: '50/60Hz',
   },
   {
     code: 'TR',
     name: 'Antalya',
     plugTypes: ['Type C', 'Type F'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'AE',
     name: 'Dubai',
     plugTypes: ['Type G'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'MO',
     name: 'Macau',
     plugTypes: ['Type D', 'Type F', 'Type G', 'Type M'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'FR',
     name: 'Paris',
     plugTypes: ['Type C', 'Type E'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
   {
     code: 'MY',
     name: 'Kuala Lumpur',
     plugTypes: ['Type C', 'Type G', 'Type M'],
-    voltage: '230V',
-    frequency: '50Hz',
   },
 ]
 
@@ -155,9 +131,7 @@ export function SmartSuggestions({ onSelect }: Props) {
                     <span key={pt} className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700 dark:bg-neutral-700 dark:text-neutral-100">{pt}</span>
                   ))}
                 </div>
-                <div className="text-xs text-neutral-500 dark:text-neutral-400">{s.voltage} • {s.frequency}</div>
-                <div className="mt-3 flex items-center justify-between text-xs">
-                  <span className="text-neutral-400 dark:text-neutral-500">Tap to autofill</span>
+                <div className="mt-3 flex justify-end text-xs">
                   <span className={`rounded-full px-2 py-0.5 ${p3Ready ? 'bg-emerald-600 text-white' : 'bg-neutral-300 text-neutral-600 dark:bg-neutral-600 dark:text-neutral-300'}`}>{p3Ready ? 'P3 Pro ready' : 'Check compatibility'}</span>
                 </div>
               </motion.button>
